@@ -5,7 +5,7 @@
   "description": "Backend API for HostelWorld clone",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+     "start": "node scripts/seedData.js && node server.js",
     "dev": "nodemon server.js",
     "seed": "node scripts/seedData.js"
   },

@@ -1122,24 +1122,24 @@ async function seedDatabase() {
     await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to MongoDB');
 
-    await Hostel.deleteMany({});
-    console.log('Cleared existing hostels');
+    const existingHostels = await Hostel.countDocuments();
+    if (existingHostels > 0) {
+      console.log(`Found ${existingHostels} existing hostels. Skipping seed.`);
+      await mongoose.disconnect();
+      return;
+    }
 
     const hostels = await Hostel.insertMany(hostelData);
     console.log(`Inserted ${hostels.length} hostels`);
 
     for (let hostel of hostels) {
       if (hostel.reviews.length > 0) {
-        hostel.updateRating();
+        hostel.updateRating?.(); // Optional chaining if method might not exist
         await hostel.save();
       }
     }
 
     console.log('Database seeded successfully!');
-    console.log(`Total hostels: ${hostels.length}`);
-    console.log(`European hostels: ${hostels.filter(h => !['Delhi', 'Mumbai', 'Goa', 'Jaipur', 'Bangalore', 'Kochi', 'Rishikesh', 'Udaipur', 'Kolkata', 'Manali'].includes(h.city)).length}`);
-    console.log(`Indian hostels: ${hostels.filter(h => ['Delhi', 'Mumbai', 'Goa', 'Jaipur', 'Bangalore', 'Kochi', 'Rishikesh', 'Udaipur', 'Kolkata', 'Manali'].includes(h.city)).length}`);
-    
     await mongoose.disconnect();
   } catch (error) {
     console.error('Seeding error:', error);
