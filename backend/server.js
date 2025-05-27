@@ -15,7 +15,7 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:8082',
-  'https://your-frontend.vercel.app'  // i have to replace with actual frontend URL
+  'https://hotel-finder-xi.vercel.app/'  // i have to replace with actual frontend URL
 
 ];
 
