@@ -15,8 +15,9 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:8082',
-  'https://hotel-finder-xi.vercel.app/'  // i have to replace with actual frontend URL
-
+  'https://hostel-finder-beta.vercel.app',
+  'https://hostel-finder-git-main-bantu9848-gmailcoms-projects.vercel.app',
+  'https://hostel-finder-d1ja8f4yl-bantu9848-gmailcoms-projects.vercel.app'
 ];
 
 // Security middleware
