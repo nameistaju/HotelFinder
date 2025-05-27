@@ -28,13 +28,15 @@ app.use(cors({
     if (!origin) return callback(null, true);
 
     if (process.env.NODE_ENV === 'production') {
-      if (origin === process.env.FRONTEND_URL) {
+      // Allow all origins in allowedOrigins even in production
+      if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       } else {
         return callback(new Error('Not allowed by CORS'), false);
       }
     } else {
-      if (allowedOrigins.indexOf(origin) !== -1) {
+      // Development environment check
+      if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       } else {
         return callback(new Error(`CORS error: Origin ${origin} not allowed`), false);
